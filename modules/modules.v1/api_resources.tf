@@ -27,3 +27,9 @@ resource "aws_api_gateway_resource" "version" {
   parent_id   = aws_api_gateway_resource.provider.id
   path_part   = "{version}"
 }
+
+resource "aws_api_gateway_resource" "download" {
+  rest_api_id = aws_api_gateway_resource.version.rest_api_id
+  parent_id   = aws_api_gateway_resource.version.id
+  path_part   = "download"
+}
