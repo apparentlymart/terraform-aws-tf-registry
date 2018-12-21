@@ -1,5 +1,7 @@
 locals {
-  service_base_url = aws_api_gateway_deployment.live.invoke_url
+  service_base_url = (
+    local.friendly_hostname_base_url != "" ? local.friendly_hostname_base_url : aws_api_gateway_deployment.live.invoke_url
+  )
 }
 
 output "services" {
@@ -9,4 +11,14 @@ output "services" {
     # double up slashes if the root path also starts with a slash.
     "modules.v1" = replace("${local.service_base_url}//${aws_api_gateway_resource.modules_root.path}/", "/\\/\\/\\//", "/")
   }
+}
+
+output "dns_alias" {
+  description = "If the friendly_hostname input variable is set, this exports the hostname and Route53 zone id that should be used to point the friendly hostname at the registry API. If not using Route53 for DNS, you can alternatively create a regular CNAME record to the returned hostname. If friendly hostname is not enabled then this output is always null."
+  value = (
+    local.hostname_enabled ? {
+      hostname        = aws_api_gateway_domain_name.main[0].regional_domain_name
+      route53_zone_id = aws_api_gateway_domain_name.main[0].regional_zone_id
+    } : null
+  )
 }

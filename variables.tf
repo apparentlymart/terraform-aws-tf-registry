@@ -1,7 +1,11 @@
 variable "friendly_hostname" {
-  type        = "string"
-  description = "The canonical \"friendly hostname\" that will be used to reference objects in this registry. If this is set, this hostname will be registered against the created API. Can be left unset if the service discovery information will be separately published at the friendly hostname, using the \"services\" output value."
-  default     = ""
+  description = "Configures a \"friendly hostname\" that will be used to reference objects in this registry. If this is set, the given hostname and certificate will be registered against the created API. Can be left unset if the service discovery information will be separately published at the friendly hostname, using the \"services\" output value."
+
+  type = object({
+    host                = string
+    acm_certificate_arn = string
+  })
+  default = null
 }
 
 variable "name_prefix" {
