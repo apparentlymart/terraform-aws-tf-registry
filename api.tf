@@ -26,3 +26,13 @@ module "disco" {
     "modules.v1" = "${aws_api_gateway_resource.modules_root.path}/",
   }
 }
+
+resource "aws_api_gateway_deployment" "live" {
+  depends_on = [
+    module.modules_v1,
+    module.disco,
+  ]
+
+  rest_api_id = aws_api_gateway_rest_api.root.id
+  stage_name  = "live"
+}
