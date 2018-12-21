@@ -10,5 +10,5 @@ variable "parent_resource_id" {
 
 variable "dynamodb_table_name" {
   type        = string
-  description = "The name to use to establish a DynamoDB table that will contain the metadata for published modules."
+  description = "The name of an already-existing DynamoDB table created by the sibling \"modules-store\" module."
 }
