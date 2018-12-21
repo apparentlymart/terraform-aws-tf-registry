@@ -16,6 +16,10 @@ module "modules_v1" {
 
   dynamodb_table_name     = local.modules_table_name
   dynamodb_query_role_arn = aws_iam_role.modules.arn
+
+  custom_authorizer_id = (
+    length(aws_api_gateway_authorizer.main) > 0 ? aws_api_gateway_authorizer.main[0].id : null
+  )
 }
 
 module "disco" {

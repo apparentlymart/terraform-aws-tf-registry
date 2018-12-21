@@ -14,9 +14,22 @@ variable "name_prefix" {
   description = "A name to use as the prefix for the created API Gateway REST API, DynamoDB tables, etc"
 }
 
+variable "lambda_authorizer" {
+  description = "Configures a custom authorizer to use to control access to the registry API with a given Lambda function."
+
+  type = object({
+    type            = string
+    function_name   = string
+    invoke_role_arn = string
+  })
+  default = null
+}
+
 locals {
   name_prefix = var.name_prefix
 
   api_gateway_name   = local.name_prefix
   modules_table_name = "${local.name_prefix}-modules"
+
+  authorizers = var.lambda_authorizer != null ? [var.lambda_authorizer] : []
 }

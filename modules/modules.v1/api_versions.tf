@@ -1,8 +1,10 @@
 resource "aws_api_gateway_method" "versions_GET" {
-  rest_api_id   = aws_api_gateway_resource.versions.rest_api_id
-  resource_id   = aws_api_gateway_resource.versions.id
-  http_method   = "GET"
-  authorization = "NONE"
+  rest_api_id = aws_api_gateway_resource.versions.rest_api_id
+  resource_id = aws_api_gateway_resource.versions.id
+  http_method = "GET"
+
+  authorization = local.authorizer.mode
+  authorizer_id = local.authorizer.id
 }
 
 resource "aws_api_gateway_integration" "versions_GET" {
