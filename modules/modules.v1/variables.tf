@@ -12,3 +12,8 @@ variable "dynamodb_table_name" {
   type        = string
   description = "The name of an already-existing DynamoDB table created by the sibling \"modules-store\" module."
 }
+
+variable "dynamodb_query_role_arn" {
+  type        = string
+  description = "The ARN of the IAM role to use when querying the DynamoDB table given in dynamodb_table_name. This role must have at least full read-only access to the table contents."
+}

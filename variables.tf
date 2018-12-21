@@ -11,6 +11,8 @@ variable "name_prefix" {
 }
 
 locals {
-  api_gateway_name   = var.name_prefix
-  modules_table_name = "${var.name_prefix}-modules"
+  name_prefix = var.name_prefix
+
+  api_gateway_name   = local.name_prefix
+  modules_table_name = "${local.name_prefix}-modules"
 }

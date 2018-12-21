@@ -14,7 +14,8 @@ module "modules_v1" {
   rest_api_id        = aws_api_gateway_resource.modules_root.rest_api_id
   parent_resource_id = aws_api_gateway_resource.modules_root.id
 
-  dynamodb_table_name = local.modules_table_name
+  dynamodb_table_name     = local.modules_table_name
+  dynamodb_query_role_arn = aws_iam_role.modules.arn
 }
 
 module "disco" {
