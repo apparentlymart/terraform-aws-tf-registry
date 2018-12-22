@@ -22,3 +22,13 @@ output "dns_alias" {
     } : null
   )
 }
+
+output "rest_api_id" {
+  description = "The id of the API Gateway REST API managed by this module."
+  value       = aws_api_gateway_rest_api.root.id
+}
+
+output "rest_api_stage_name" {
+  description = "The id of the API Gateway deployment stage managed by this module."
+  value       = aws_api_gateway_deployment.live.stage_name
+}

@@ -12,6 +12,8 @@ resource "aws_api_gateway_authorizer" "main" {
 
   type                   = local.authorizers[count.index].type
   authorizer_uri         = data.aws_lambda_function.auth[count.index].invoke_arn
-  authorizer_credentials = local.authorizers[count.index].invoke_role_arn
+  authorizer_credentials = aws_iam_role.auth[count.index].arn
   identity_source        = "method.request.header.Authorization"
+
+  depends_on = [aws_iam_role_policy.auth]
 }

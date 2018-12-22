@@ -18,9 +18,8 @@ variable "lambda_authorizer" {
   description = "Configures a custom authorizer to use to control access to the registry API with a given Lambda function."
 
   type = object({
-    type            = string
-    function_name   = string
-    invoke_role_arn = string
+    type          = string
+    function_name = string
   })
   default = null
 }
