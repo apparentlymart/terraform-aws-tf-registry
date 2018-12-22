@@ -148,6 +148,41 @@ Changing this name after the module is initially created requires re-creating
 all remote objects, including the underlying DynamoDB table. That means any
 data in that table would be lost and must be restored from backup.
 
+## Publishing Module Packages in Amazon S3
+
+If all of the users or compute instances where you run the Terraform CLI have
+access to suitable AWS credentials, it may be convenient to publish your
+private modules as archives in a protected Amazon S3 bucket.
+
+To do this, create a zip file containing the module source code with the main
+(top-level) module at the root of the file. Place this file in an S3 bucket
+with suitable permissions. The naming scheme for objects in this bucket is
+up to you, but we'd suggest using a systematic scheme like `namespace/module/provider/module_provider_version.zip`,
+giving (for example) `hashicorp/consul/aws/consul_aws_v0.4.4.zip`.
+
+When you record these in the registry's DynamoDB table, use the `s3::` prefix
+followed by an S3 URL to instruct Terraform to use the S3 authentication
+protocol when credentials are available:
+
+```
+aws dynamodb put-item \
+  --table-name TerraformRegistry-modules \
+  --item '{
+    "Id": {"S":"hashicorp/consul/aws"},
+    "Version": {"S":"0.4.4"},
+    "Source": {"S":"s3::https://s3-us-west-2.amazonaws.com/hashicorp/consul/aws/consul_aws_v0.4.4.zip"}
+  }'
+```
+
+For more information on how Terraform retrieves modules from S3 buckets,
+and in particular where it will look to obtain AWS credentials for the request,
+see [the S3 Bucket source documentation](https://www.terraform.io/docs/modules/sources.html#s3-bucket).
+
+The module registry protocol itself cannot support AWS-style authentication,
+so you must either allow unauthenticated requests to the registry endpoints
+(which will disclose only metadata about the modules) or configure the
+registry to use a Lambda authorizer, as described in a later section.
+
 ## Re-deploying the API after Changes
 
 Most customizations in the following sections cause changes to the API Gateway
