@@ -32,3 +32,8 @@ output "rest_api_stage_name" {
   description = "The id of the API Gateway deployment stage managed by this module."
   value       = aws_api_gateway_deployment.live.stage_name
 }
+
+output "target_domain_name" {
+  description = "The target domain name of the API to publish to Route53 or other DNS Sources"
+  value       = aws_api_gateway_domain_name.main[0].regional_domain_name
+}
