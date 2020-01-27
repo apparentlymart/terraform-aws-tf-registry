@@ -13,7 +13,7 @@ resource "aws_api_gateway_integration" "versions_GET" {
   http_method = aws_api_gateway_method.versions_GET.http_method
 
   type                    = "AWS"
-  uri                     = "arn:aws:apigateway:us-west-2:dynamodb:action/Query"
+  uri                     = "arn:aws:apigateway:${data.aws_region.region.name}:dynamodb:action/Query"
   integration_http_method = "POST"
   credentials             = var.dynamodb_query_role_arn
 
@@ -23,7 +23,7 @@ resource "aws_api_gateway_integration" "versions_GET" {
       ScanIndexForward       = false,
       KeyConditionExpression = "Id = :v1"
       ExpressionAttributeValues = {
-        ":v1" = { S = "$util.urlEncode($input.params('namespace'))/$util.urlEncode($input.params('module'))/$util.urlEncode($input.params('provider'))" }
+        ":v1" = { S = "$util.replaceAll($util.escapeJavaScript($input.params('namespace')))/$util.escapeJavaScript($input.params('module'))/$util.escapeJavaScript($input.params('provider'))" }
       }
     })
   }
