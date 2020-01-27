@@ -51,6 +51,6 @@ resource "aws_api_gateway_integration_response" "download_GET_200" {
   }
 
   response_templates = {
-    "application/json" = jsonencode(file("${path.module}/files/download_response.template"))
+    "application/json" = file("${path.module}/files/download_response.template")
   }
 }
