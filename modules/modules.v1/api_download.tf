@@ -7,25 +7,37 @@ resource "aws_api_gateway_method" "download_GET" {
   authorizer_id = local.authorizer.id
 }
 
+data template_file "download_request" {
+  template = file("${path.module}/files/download_request.tpl")
+  vars = {
+    dynamo_table_name = var.dynamodb_table_name
+  }
+}
+
 resource "aws_api_gateway_integration" "download_GET" {
   rest_api_id = aws_api_gateway_method.download_GET.rest_api_id
   resource_id = aws_api_gateway_method.download_GET.resource_id
   http_method = aws_api_gateway_method.download_GET.http_method
 
   type                    = "AWS"
-  uri                     = "arn:aws:apigateway:us-west-2:dynamodb:action/GetItem"
+  uri                     = "arn:aws:apigateway:${data.aws_region.region.name}:dynamodb:action/GetItem"
   integration_http_method = "POST"
   credentials             = var.dynamodb_query_role_arn
 
   request_templates = {
-    "application/json" = jsonencode({
-      TableName = var.dynamodb_table_name
-      Key : {
-        Id      = { S = "$util.urlEncode($input.params('namespace'))/$util.urlEncode($input.params('module'))/$util.urlEncode($input.params('provider'))" }
-        Version = { S = "$util.urlEncode($input.params('version'))" }
-      }
-    })
+    "application/json" = jsonencode(data.template_file.download_request.rendered)
   }
+
+
+  ##{
+  ##  "application/json" = jsonencode({
+  ##    TableName = var.dynamodb_table_name
+  ##    Key : {
+  ##      Id      = { S = "$util.escapeJavaScript($input.params('namespace'))/$util.escapeJavaScript($input.params('module'))/$util.escapeJavaScript($input.params('provider'))" }
+  ##      Version = { S = "$util.escapeJavaScript($input.params('version'))" }
+  ##    }
+  ##  })
+  ##}
 }
 
 resource "aws_api_gateway_method_response" "download_GET_200" {
@@ -50,12 +62,6 @@ resource "aws_api_gateway_integration_response" "download_GET_200" {
   }
 
   response_templates = {
-    "application/json" = <<EOT
-#set($inputRoot = $input.path('$'))
-{
-  "version": "$util.escapeJavaScript($inputRoot.Item.Version.S)",
-  "source": "$util.escapeJavaScript($inputRoot.Item.Source.S)",
-}
-EOT
+    "application/json" = jsonencode(file("${path.module}/files/download_response.json"))
   }
 }
