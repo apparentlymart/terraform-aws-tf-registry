@@ -23,7 +23,7 @@ resource "aws_api_gateway_integration" "versions_GET" {
       ScanIndexForward       = false,
       KeyConditionExpression = "Id = :v1"
       ExpressionAttributeValues = {
-        ":v1" = { S = "$util.replaceAll($util.escapeJavaScript($input.params('namespace')))/$util.escapeJavaScript($input.params('module'))/$util.escapeJavaScript($input.params('provider'))" }
+        ":v1" = { S = "$util.urlEncode($input.params('namespace'))/$util.urlEncode($input.params('module'))/$util.urlEncode($input.params('provider'))" }
       }
     })
   }
@@ -43,21 +43,6 @@ resource "aws_api_gateway_integration_response" "versions_GET_200" {
   status_code = aws_api_gateway_method_response.versions_GET_200.status_code
 
   response_templates = {
-    "application/json" = <<EOT
-#set($inputRoot = $input.path('$'))
-{
-  "modules": [
-    {
-      "versions": [
-#foreach($elem in $inputRoot.Items)        {
-        "version": "$util.escapeJavaScript($elem.Version.S)"
-      }#if($foreach.hasNext),#end
-
-	#end
-      ]
-    }
-  ]
-}
-EOT
+    "application/json" = file("${path.module}/files/version_request.template")
   }
 }
