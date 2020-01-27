@@ -36,7 +36,13 @@ resource "aws_api_gateway_deployment" "live" {
     module.modules_v1,
     module.disco,
   ]
-
   rest_api_id = aws_api_gateway_rest_api.root.id
   stage_name  = "live"
+  variables = {
+    deployment_version = formatdate("MMDDYYYYHHmmss", timestamp())
+    version_scheme = "MMDDYYYHHmmss"
+  }
+  lifecycle {
+    create_before_destroy = true
+  }
 }
