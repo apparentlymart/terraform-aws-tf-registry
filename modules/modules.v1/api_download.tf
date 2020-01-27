@@ -25,19 +25,8 @@ resource "aws_api_gateway_integration" "download_GET" {
   credentials             = var.dynamodb_query_role_arn
 
   request_templates = {
-    "application/json" = jsonencode(data.template_file.download_request.rendered)
+    "application/json" = data.template_file.download_request.rendered
   }
-
-
-  ##{
-  ##  "application/json" = jsonencode({
-  ##    TableName = var.dynamodb_table_name
-  ##    Key : {
-  ##      Id      = { S = "$util.escapeJavaScript($input.params('namespace'))/$util.escapeJavaScript($input.params('module'))/$util.escapeJavaScript($input.params('provider'))" }
-  ##      Version = { S = "$util.escapeJavaScript($input.params('version'))" }
-  ##    }
-  ##  })
-  ##}
 }
 
 resource "aws_api_gateway_method_response" "download_GET_200" {
