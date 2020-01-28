@@ -41,9 +41,9 @@ variable "domain_security_policy" {
   default = "TLS_1_2"
 }
 
-variable "vpc_endpoint_id" {
+variable "vpc_endpoint_ids" {
   description = "Sets the VPC endpoint ID for a private API, defaults to null"
-  type = string
+  type = list(string)
   default = null
 }
 
@@ -53,5 +53,5 @@ locals {
   modules_table_name = "${local.name_prefix}-modules"
   authorizers = var.lambda_authorizer != null ? [var.lambda_authorizer] : []
   api_access_policy = var.api_type != "PRIVATE" ? var.api_access_policy : ""
-  vpc_endpoint_id = var.vpc_endpoint_id != null ? var.vpc_endpoint_id : ""
+  vpc_endpoint_id = var.vpc_endpoint_ids != null ? var.vpc_endpoint_ids : []
 }

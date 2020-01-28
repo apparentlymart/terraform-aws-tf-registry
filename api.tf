@@ -5,7 +5,6 @@ resource "aws_api_gateway_rest_api" "root" {
     vpc_endpoint_ids = local.vpc_endpoint_id
   }
   policy = local.api_access_policy
-
 }
 
 resource "aws_api_gateway_resource" "modules_root" {
