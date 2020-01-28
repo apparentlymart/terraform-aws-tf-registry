@@ -24,6 +24,17 @@ variable "lambda_authorizer" {
   default = null
 }
 
+variable "api_type" {
+  description = "Sets API type if you want a private API without a custom domain name, defaults to EDGE for public access"
+  default = ["EDGE"]
+  type = list(string)
+}
+
+variable "api_access_policy" {
+  description = "If using a Private API requires you to have an access policy configured and accepts a string, but must be valid json. Defaults to Null"
+  type = string
+}
+
 variable "domain_security_policy" {
   description = "Sets the TLS version to desired state, defaults to 1.2"
   type = string
@@ -32,9 +43,8 @@ variable "domain_security_policy" {
 
 locals {
   name_prefix = var.name_prefix
-
   api_gateway_name   = local.name_prefix
   modules_table_name = "${local.name_prefix}-modules"
-
   authorizers = var.lambda_authorizer != null ? [var.lambda_authorizer] : []
+  api_access_policy = var.api_type != "PRIVATE" ? var.api_access_policy : ""
 }
