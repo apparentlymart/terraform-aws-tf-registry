@@ -1,0 +1,10 @@
+#set($inputRoot = $input.path('$'))
+{
+    "modules": [
+        {
+            "versions": [
+                #foreach($elem in $inputRoot.Items){"version": "$util.escapeJavaScript($elem.Version.S)"}#if($foreach.hasNext),#end#end
+            ]
+        }
+    ]
+}

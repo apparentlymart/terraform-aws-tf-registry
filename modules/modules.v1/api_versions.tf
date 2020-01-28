@@ -13,7 +13,7 @@ resource "aws_api_gateway_integration" "versions_GET" {
   http_method = aws_api_gateway_method.versions_GET.http_method
 
   type                    = "AWS"
-  uri                     = "arn:aws:apigateway:us-west-2:dynamodb:action/Query"
+  uri                     = "arn:aws:apigateway:${data.aws_region.region.name}:dynamodb:action/Query"
   integration_http_method = "POST"
   credentials             = var.dynamodb_query_role_arn
 
@@ -43,21 +43,6 @@ resource "aws_api_gateway_integration_response" "versions_GET_200" {
   status_code = aws_api_gateway_method_response.versions_GET_200.status_code
 
   response_templates = {
-    "application/json" = <<EOT
-#set($inputRoot = $input.path('$'))
-{
-  "modules": [
-    {
-      "versions": [
-#foreach($elem in $inputRoot.Items)        {
-        "version": "$util.escapeJavaScript($elem.Version.S)"
-      }#if($foreach.hasNext),#end
-
-	#end
-      ]
-    }
-  ]
-}
-EOT
+    "application/json" = file("${path.module}/files/version_request.template")
   }
 }
