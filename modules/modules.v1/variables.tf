@@ -24,6 +24,11 @@ variable "custom_authorizer_id" {
   default     = null
 }
 
+variable "region" {
+  type        = string
+  description = "An AWS region."
+}
+
 locals {
   authorizer = var.custom_authorizer_id != null ? {
     mode = "CUSTOM"

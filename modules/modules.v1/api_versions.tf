@@ -13,7 +13,7 @@ resource "aws_api_gateway_integration" "versions_GET" {
   http_method = aws_api_gateway_method.versions_GET.http_method
 
   type                    = "AWS"
-  uri                     = "arn:aws:apigateway:us-west-2:dynamodb:action/Query"
+  uri                     = "arn:aws:apigateway:${var.region}:dynamodb:action/Query"
   integration_http_method = "POST"
   credentials             = var.dynamodb_query_role_arn
 
