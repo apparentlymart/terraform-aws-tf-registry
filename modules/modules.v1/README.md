@@ -6,7 +6,7 @@ Terraform module registry API in terms of a given DynamoDB table.
 
 ```hcl
 module "modules_v1" {
-  source = "apparentlymart/tf-registry/aws//modules/modules.v1"
+  source = "git@github.com:SwissArmyRonin/terraform-aws-tf-registry.git//modules/modules.v1"
 
   rest_api_id             = aws_api_gateway_rest_api.example.id
   parent_resource_id      = aws_api_gateway_rest_api.example.root_resource_id
@@ -29,3 +29,6 @@ leaving room for other services to be deployed alongside in future.
 The base URL for the modules service (to publish in a discovery document) is
 the full URL of the resource specified in `parent_resource_id`, with a trailing
 slash.
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

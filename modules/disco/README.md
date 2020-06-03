@@ -6,7 +6,7 @@ at the root of an Amazon API Gateway REST API.
 
 ```hcl
 module "disco" {
-  source = "apparentlymart/tf-registry/aws//modules/disco"
+  source = "git@github.com:SwissArmyRonin/terraform-aws-tf-registry.git//modules/disco"
 
   rest_api_id = aws_api_gateway_rest_api.example.id
   services = {
@@ -22,3 +22,6 @@ a JSON serialization of the given `services` map.
 
 The method is configured with a "MOCK" integration, so the static response
 comes directly from API Gateway and does not depend on any backend services.
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

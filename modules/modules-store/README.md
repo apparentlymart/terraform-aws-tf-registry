@@ -14,3 +14,6 @@ module "modules_store" {
 At present this module does not allow the DynamoDB table settings to be
 customized, and forces provisioned capacity with only one unit of both read
 and write capacity. This may become more configurable in a later release.
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
