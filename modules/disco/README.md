@@ -24,4 +24,27 @@ The method is configured with a "MOCK" integration, so the static response
 comes directly from API Gateway and does not depend on any backend services.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.12.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | n/a |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| rest\_api\_id | The id of the API Gateway REST API where a discovery document will be added. | `string` | n/a | yes |
+| services | Map from service ids (like "modules.v1") to the URL where each service is rooted. | `map(string)` | n/a | yes |
+
+## Outputs
+
+No output.
+
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
