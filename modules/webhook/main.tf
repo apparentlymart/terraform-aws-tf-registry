@@ -17,7 +17,7 @@ resource "aws_api_gateway_integration" "webhook_POST" {
   http_method = aws_api_gateway_method.webhook_POST.http_method
 
   type                    = "AWS"
-  uri                     = "arn:aws:apigateway:${var.region}:dynamodb:action/Query"
+  uri                     = "arn:aws:apigateway:${var.region}:dynamodb:action/PutItem"
   integration_http_method = "POST"
   credentials             = var.dynamodb_update_role_arn
 
