@@ -15,7 +15,7 @@ module "modules_v1" {
   parent_resource_id = aws_api_gateway_resource.modules_root.id
 
   dynamodb_table_name     = local.modules_table_name
-  dynamodb_query_role_arn = aws_iam_role.update.arn
+  dynamodb_query_role_arn = aws_iam_role.query.arn
 
   region = var.region
 
