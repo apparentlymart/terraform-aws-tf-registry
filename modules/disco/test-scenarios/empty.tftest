@@ -1,0 +1,42 @@
+required_providers {
+  aws = {
+    source = "hashicorp/aws"
+  }
+}
+
+mock_provider "aws" {
+  config = "./aws-mock"
+}
+
+step "create" {
+  variables = {
+    rest_api_id = "fake_for_empty.tftest"
+    services    = {}
+  }
+  providers = {
+    aws = aws
+  }
+
+  postcondition {
+    condition     = outputs.discovery_doc_resource_id == "well_known_terraform_for_empty.tftest"
+    error_message = format("wrong id %q for the terraform.json resource", outputs.discovery_doc_resource_id)
+  }
+
+  # TODO: Once the test scenario language allows referring to a particular
+  # resource's planed or final state in postconditions, this test would be
+  # made more useful by verifying that
+  # aws_api_gateway_integration_response.well_known_terraform_GET_200 has
+  # the expected value for its response_templates argument.
+  /*
+  postcondition {
+    # (hypothetical syntax for retrieving the final state for a resource.
+    # Argument to finalstate is a static absolute resource address; this
+    # unusual structure avoids the ambiguity that would otherwise arise
+    # about where the resource address ends and the subsequent attribute
+    # access begins)
+    condition = finalstate(aws_api_gateway_integration_response.well_known_terraform_GET_200).response_templates == tomap({
+      "application/json" = "{}"
+    })
+  }
+  */
+}

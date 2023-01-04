@@ -1,0 +1,8 @@
+read {
+  response "empty" {
+    condition = config.rest_api_id == "fake_for_empty.tftest"
+    content {
+      id = "root_for_empty.tftest"
+    }
+  }
+}

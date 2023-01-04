@@ -1,0 +1,28 @@
+required_providers {
+  aws = {
+    source = "hashicorp/aws"
+  }
+}
+
+mock_provider "aws" {
+  config = "./aws-mock"
+}
+
+step "create" {
+  variables = {
+    dynamodb_table_name = "john"
+  }
+  providers = {
+    aws = aws
+  }
+
+  postcondition {
+    condition     = outputs.dynamodb_table_name == "john"
+    error_message = format("unexpected table name %q", outputs.dynamodb_table_name)
+  }
+
+  postcondition {
+    condition     = outputs.dynamodb_table_arn == "arn:aws:dynamodb:mock:mock:table/john"
+    error_message = format("unexpected table ARN %q", outputs.dynamodb_table_arn)
+  }
+}

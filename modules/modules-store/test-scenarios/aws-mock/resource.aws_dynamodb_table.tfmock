@@ -1,0 +1,18 @@
+
+plan {
+  response "default" {
+    content {
+      id  = unknown(string)
+      arn = unknown(string)
+    }
+  }
+}
+
+apply {
+  response "default" {
+    content {
+      id  = "mock:${config.name}"
+      arn = "arn:aws:dynamodb:mock:mock:table/${config.name}"
+    }
+  }
+}

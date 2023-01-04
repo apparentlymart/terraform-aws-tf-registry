@@ -1,0 +1,8 @@
+apply {
+  response "for_empty" {
+    condition = config.rest_api_id == "fake_for_empty.tftest" && config.resource_id == "well_known_terraform_for_empty.tftest"
+    content {
+      id = "placeholder"
+    }
+  }
+}

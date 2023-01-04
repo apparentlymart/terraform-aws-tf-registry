@@ -1,0 +1,15 @@
+apply {
+  response "for_empty_well_known" {
+    condition = config.rest_api_id == "fake_for_empty.tftest" && config.parent_id == "root_for_empty.tftest"
+    content {
+      id = "well_known_for_empty.tftest"
+    }
+  }
+
+  response "for_empty_well_known_terraform" {
+    condition = config.rest_api_id == "fake_for_empty.tftest" && config.parent_id == "well_known_for_empty.tftest"
+    content {
+      id = "well_known_terraform_for_empty.tftest"
+    }
+  }
+}

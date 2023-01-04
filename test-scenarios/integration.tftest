@@ -1,0 +1,25 @@
+required_providers {
+  aws = {
+    source = "hashicorp/aws"
+  }
+}
+
+provider "aws" {
+  region = "us-west-2"
+}
+
+# This simple scenario just does one plan and apply of the module with default
+# settings, relying on the module's own definition and smoke tests as the
+# entire definition of success.
+
+step "create" {
+  variables = {
+    # TODO: This scenario language should include a way to generate random
+    # id strings to include in the unique names of object we're only using
+    # temporarily for testing.
+    name_prefix = "terraform-aws-tf-registry-roottest"
+  }
+  providers = {
+    aws = aws
+  }
+}

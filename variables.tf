@@ -9,7 +9,7 @@ variable "friendly_hostname" {
 }
 
 variable "name_prefix" {
-  type        = "string"
+  type        = string
   default     = "TerraformRegistry"
   description = "A name to use as the prefix for the created API Gateway REST API, DynamoDB tables, etc"
 }

@@ -19,4 +19,10 @@ resource "aws_dynamodb_table" "modules" {
     name = "Version"
     type = "S"
   }
+
+  # FIXME: The "terraform test" experiment's provider mocking mechanism doesn't
+  # currently have a way to represent the absense of any blocks of a particular
+  # type and so this is here just to avoid a silly error about the timeout
+  # block's value being unknown during planning.
+  timeouts {}
 }

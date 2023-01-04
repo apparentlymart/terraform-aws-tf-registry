@@ -1,0 +1,16 @@
+required_providers {
+  aws = {
+    source = "hashicorp/aws"
+  }
+}
+
+provider "aws" {
+  region = "us-west-2"
+}
+
+step "create" {
+  module = "./integration-test-root"
+  providers = {
+    aws = aws
+  }
+}
