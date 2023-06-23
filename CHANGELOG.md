@@ -10,7 +10,7 @@
 - documentation update
 - integration to https://registry.terraform.io/modules/geronimo-iia/tf-registry/aws/latest
 
-## v1.0.0 (current not released)
+## v1.0.0
 
 Features:
 
