@@ -17,25 +17,34 @@ module "awesomeapp" {
 
 This is a fork from https://github.com/apparentlymart/terraform-aws-tf-registry, created by Martin Atkins.
 
-Added Features :
+## Features :
 
-- python lambda authorizer for authentication
-- JWT secret creation and sharing with secret manager
-- Automate API update after change
-- Add a bucket to store artifact
-- Usage example
+- add JWT secret creation and sharing with secret manager
+- add lambda autorizer for authentication
+- automate API gateway redeployment
+- add dedicated bucket storage
+- add python script to deploy terraform module
+- add control of dynamodb capacity (provisioned, pay per request, ...)
+- add tags on resource
+- add dynamodb capacity management and custom naming
+- add bucket custom naming
+- add storage output
+- usage example
+- automate API update after change
+
 
 With this registy implemnentation, you can add a module source from "anywhere" like git, http server, and s3 bucket.
 
 But for all this storage, you add to handle authentication (...).
-For my point of view, the more simple is to deploy zipped terraform module on a bucket (with ad hoc CI-CD pipeline) and handle access with aws s3 signature.
-That's why i added a dedicated bucket in this stack.
+
+> For my point of view, the more simple is to deploy zipped terraform module on a bucket (with ad hoc CI-CD pipeline) and handle access with aws s3 signature.
+> That's why i added a dedicated bucket in this stack.
 
 > All management use case around this private terraform registry can be handled by [this python client](https://github.com/geronimo-iia/terraform-aws-tf-registry-cli)
 
 Ths project has been battle tested in huge production workload since 2 years and cost less than 10$ per month.
 
-## Terraform registry
+## Terraform private registry design
 
 ![Architecture](./docs/registry.png)
 
