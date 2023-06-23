@@ -115,8 +115,68 @@ module "test" {
 If you wanna use this project in production (like me...), I thinks that you should follow this tricks:
 
 1. fork this project into your entrprise git server and add a remote branch 'github' to this repository
-3. publish a dummy terraform module, see how it's managed in the dynamodb
+2. adjust variable of example 'registry' to deploy it in a quick and not so dirty mode :)
+3. publish a dummy terraform module, see how it's managed in the dynamodb, test a `terraform init` etc...
 4. integrate the python client into your ci
+
+### Assume role and terraform trouble with `aws-mfa`
+
+If you have an iam user with aws key configured to use with your terraform provider, you will not facing ay issue.
+
+Most often, we use multiple assume role in order to manage multiple aws account for the same entreprise.
+And most often it works very well :)
+
+But (...) I faced an issue with the python module 'aws-mfa' recently, that i wanna share. If you knwon what's wrong, let me known :)
+
+With a configuration like this:
+
+```text
+[profile myorg-shared-mfa-long-term]
+region=eu-west-1
+output=json
+
+[profile myorg-devops-mfa]
+region=eu-west-1
+output=json
+
+[profile myorg-prod-admin]
+region=eu-west-1
+role_arn = arn:aws:iam::123456789:role/myorg-admin
+source_profile = myorg-devops-mfa
+
+```
+
+and credential like this:
+
+```text
+[profile myorg-shared-mfa-long-term] # here we store our iam user key
+aws_access_key_id = AAAAAA
+aws_secret_access_key = BBBBBBB
+aws_mfa_device = arn:aws:iam::0000000:mfa/contact@myorg.com
+
+[myorg-shared-mfa]
+aws_mfa_device = arn:aws:iam::0000000:mfa/contact@myorg.com
+aws_access_key_id = 
+aws_secret_access_key = 
+
+```
+
+If you do this for your `terraform init`, it will failed with a `NoCredentialProviders: no valid providers in chain`:
+
+```bash
+aws-mfa --profile myorg-shared-mfa --force 
+export AWS_PROFILE="myorg-prod-admin"
+```
+
+BUT, with this, `terraform init` will be happy :
+
+```bash
+aws-mfa --profile myorg-shared-mfa --force --assume-role arn:aws:iam::123456789:role/myorg-admin
+export AWS_PROFILE="myorg-shared-mfa"
+```
+
+Strange isn't it ? 
+As an '--assume-role' option preconfigure all environment variables, "maybe" terraform probably fail to read all runtime information of a client session on 'myorg-shared-mfa'.
 
 
 ### few bash command line for testing
