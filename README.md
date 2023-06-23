@@ -216,7 +216,7 @@ resource "aws_acm_certificate_validation" "certificate" {
 
 module "registry" {
   source  = "geronimo-iia/tf-registry/aws"
-  version = "1.0.1"
+  version = "1.0.2"
   name_prefix = "registry"
 
   storage = {
