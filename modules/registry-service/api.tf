@@ -12,7 +12,7 @@ module "modules_v1" {
   source = "./modules/modules.v1"
 
   rest_api_id          = aws_api_gateway_rest_api.root.id
-  dynamodb_table_name  = var.dynamodb_table_arn
+  dynamodb_table_name  = var.dynamodb_table_name
   credentials_role_arn = aws_iam_role.modules.arn
   custom_authorizer_id = (
     length(aws_api_gateway_authorizer.main) > 0 ? aws_api_gateway_authorizer.main[0].id : null

@@ -49,6 +49,7 @@ module "registry" {
   }
 
   dynamodb_table_arn = module.store.dynamodb_table_arn
+  dynamodb_table_name = module.store.dynamodb_table_name
   bucket_arn         = module.store.bucket_arn
 
   depends_on = [

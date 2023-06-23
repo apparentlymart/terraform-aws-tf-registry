@@ -85,3 +85,5 @@ authorizer_package.zip
 
 *.bkp
 *.dtmp
+
+example/registry-test
