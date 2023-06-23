@@ -23,13 +23,15 @@ Added Features :
 - JWT secret creation and sharing with secret manager
 - Automate API update after change
 - Add a bucket to store artifact
+- Usage example
 
 With this registy implemnentation, you can add a module source from "anywhere" like git, http server, and s3 bucket.
+
 But for all this storage, you add to handle authentication (...).
 For my point of view, the more simple is to deploy zipped terraform module on a bucket (with ad hoc CI-CD pipeline) and handle access with aws s3 signature.
 That's why i added a dedicated bucket in this stack.
 
-> All management use case around this private terraform registry can be handled by [this python client](terraform-aws-tf-registry-cli)
+> All management use case around this private terraform registry can be handled by [this python client](https://github.com/geronimo-iia/terraform-aws-tf-registry-cli)
 
 Ths project has been battle tested in huge production workload since 2 years and cost less than 10$ per month.
 
