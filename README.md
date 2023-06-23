@@ -115,7 +115,6 @@ module "test" {
 If you wanna use this project in production (like me...), I thinks that you should follow this tricks:
 
 1. fork this project into your entrprise git server and add a remote branch 'github' to this repository
-2. try the simple example (without Route53 record, etc), make few test, and add your lovely domain name according your dns naming convention and ACME management rules.
 3. publish a dummy terraform module, see how it's managed in the dynamodb
 4. integrate the python client into your ci
 
