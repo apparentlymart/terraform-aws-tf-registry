@@ -40,6 +40,11 @@ But for all this storage, you add to handle authentication (...).
 > For my point of view, the more simple is to deploy zipped terraform module on a bucket (with ad hoc CI-CD pipeline) and handle access with aws s3 signature.
 > That's why i added a dedicated bucket in this stack.
 
+The registry return source module url like s3::https://s3....s/vpc.zip", when you use release command from  [this python client](https://github.com/geronimo-iia/terraform-aws-tf-registry-cli).
+
+The s3:: prefix causes Terraform to use AWS-style authentication when accessing the given URL. 
+No need to give public access to your bucket. [Read S3 Bucket](https://developer.hashicorp.com/terraform/language/modules/sources#s3-bucket)
+
 > All management use case around this private terraform registry can be handled by [this python client](https://github.com/geronimo-iia/terraform-aws-tf-registry-cli)
 
 Ths project has been battle tested in huge production workload since 2 years and cost less than 10$ per month.
