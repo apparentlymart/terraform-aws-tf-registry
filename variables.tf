@@ -47,22 +47,22 @@ variable "tags" {
 
 variable "storage" {
   type = object({
-    dynamodb = object({ 
-      name = optional(string, null)
+    dynamodb = object({
+      name         = optional(string, null)
       billing_mode = optional(string, "PAY_PER_REQUEST")
       read         = optional(number, 1)
       write        = optional(number, 1)
     })
-    bucket = object({ 
+    bucket = object({
       name = optional(string, null)
     })
   })
   default = {
     dynamodb = {
-      name = null
+      name         = null
       billing_mode = "PAY_PER_REQUEST"
-      read=1
-      write=1
+      read         = 1
+      write        = 1
     }
     bucket = {
       name = null

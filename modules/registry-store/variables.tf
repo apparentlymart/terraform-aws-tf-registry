@@ -1,20 +1,20 @@
 variable "name_prefix" {
-  type        = string
+  type = string
 }
 
 variable "tags" {
-  type        = map(string)
+  type = map(string)
 }
 
 variable "storage" {
   type = object({
-    dynamodb = object({ 
-      name = optional(string, null)
+    dynamodb = object({
+      name         = optional(string, null)
       billing_mode = optional(string, "PAY_PER_REQUEST")
       read         = optional(number, 1)
       write        = optional(number, 1)
     })
-    bucket = object({ 
+    bucket = object({
       name = optional(string, null)
     })
   })

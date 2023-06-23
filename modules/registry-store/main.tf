@@ -1,7 +1,7 @@
 locals {
-  default_name =  "${var.name_prefix}-modules"
-  dynamodb_table_name = var.storage.dynamodb.name !=null ? var.storage.dynamodb.name  :  local.default_name
-  bucket_name = var.storage.bucket.name !=null ? var.storage.bucket.name  :  local.default_name
+  default_name        = "${var.name_prefix}-modules"
+  dynamodb_table_name = var.storage.dynamodb.name != null ? var.storage.dynamodb.name : local.default_name
+  bucket_name         = var.storage.bucket.name != null ? var.storage.bucket.name : local.default_name
 }
 
 resource "aws_dynamodb_table" "modules" {
