@@ -51,7 +51,7 @@ Ths project has been battle tested in huge production workload since 2 years and
 
 ## Terraform private registry design
 
-![Architecture](./docs/registry.png)
+![Architecture](https://github.com/geronimo-iia/terraform-aws-tf-registry/blob/main/docs/registry.png)
 
 Reference:
 
