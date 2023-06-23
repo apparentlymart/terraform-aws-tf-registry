@@ -1,0 +1,5 @@
+#set($inputRoot = $input.path('$'))
+{
+  "version": "$util.escapeJavaScript($inputRoot.Item.Version.S)",
+  "source": "$util.escapeJavaScript($inputRoot.Item.Source.S)",
+}

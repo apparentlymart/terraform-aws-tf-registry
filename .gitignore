@@ -1,3 +1,87 @@
-.terraform/*
-terraform.tfstate
-terraform.tfstate.backup
+# Terraform
+.terraform
+.terraform.lock.*
+*.tfstate
+*.tfstate.backup
+backend.tf
+
+
+# Terragrunt
+.terragrunt-cache
+
+# Terraform run time
+plan
+plan.json
+
+# OS X
+.history
+.DS_Store
+
+# IntelliJ
+.idea_modules
+*.iml
+*.iws
+*.ipr
+.idea/
+build/
+*/build/
+out/
+
+
+__pycache__
+.ipynb_checkpoints
+*.pyc
+
+
+# Temporary Python files
+*.pyc
+*.egg-info
+__pycache__
+.ipynb_checkpoints
+
+# Temporary OS files
+Icon*
+
+# Temporary virtual environment files
+.cache/
+.venv/
+.mypy_cache/
+.pytest_cache/
+# Temporary server files
+.env
+*.pid
+
+# Google Drive
+*.gdoc
+*.gsheet
+*.gslides
+*.gdraw
+
+# Testing and coverage results
+.coverage
+.coverage.*
+htmlcov/
+
+# Build and release directories
+build/
+dist/
+*.spec
+.install
+
+# Sublime Text
+*.sublime-workspace
+
+# IDE
+.settings
+.idea/
+.vscode
+.history
+
+# OSX
+.DS_Store
+
+
+authorizer_package.zip
+
+*.bkp
+*.dtmp
