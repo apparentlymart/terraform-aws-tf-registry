@@ -270,12 +270,12 @@ If you wanna use this project in production (like me...), I thinks that you shou
 
 ### Assume role and terraform trouble with `aws-mfa`
 
-If you have an iam user with aws key configured to use with your terraform provider, you will not facing ay issue.
+If you have an iam user with aws key configured to use with your terraform provider, you will not facing any issue.
 
 Most often, we use multiple assume role in order to manage multiple aws account for the same entreprise.
 And most often it works very well :)
 
-But (...) I faced an issue with the python module 'aws-mfa' recently, that i wanna share. If you knwon what's wrong, let me known :)
+But (...) I faced an issue with the python module 'aws-mfa' recently, that i wanna share. If you known what's wrong, let me known :)
 
 With a configuration like this:
 
@@ -284,14 +284,14 @@ With a configuration like this:
 region=eu-west-1
 output=json
 
-[profile myorg-devops-mfa]
+[profile myorg-shared-mfa]
 region=eu-west-1
 output=json
 
 [profile myorg-prod-admin]
 region=eu-west-1
 role_arn = arn:aws:iam::123456789:role/myorg-admin
-source_profile = myorg-devops-mfa
+source_profile = myorg-shared-mfa
 
 ```
 
