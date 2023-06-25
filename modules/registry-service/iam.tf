@@ -27,6 +27,7 @@ resource "aws_iam_role_policy" "modules" {
         Effect = "Allow"
         Action = [
           "s3:Get*",
+          "s3:List*",
         ]
         Resource = [
           var.bucket_arn,

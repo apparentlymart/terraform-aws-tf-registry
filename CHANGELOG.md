@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.1.0 (next release)
+
+- ADD blob Api Entry point: add api entry point to create a proxy on dedicated bucket [like this example[(https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html#API_GetObject_Examples|).
 
 ## v1.0.2
 

@@ -19,6 +19,8 @@ This is a fork from https://github.com/apparentlymart/terraform-aws-tf-registry,
 
 ## Features :
 
+### v1.0.2
+
 - add JWT secret creation and sharing with secret manager
 - add lambda autorizer for authentication
 - automate API gateway redeployment
@@ -48,6 +50,18 @@ No need to give public access to your bucket. [Read S3 Bucket](https://developer
 > All management use case around this private terraform registry can be handled by [this python client](https://github.com/geronimo-iia/terraform-aws-tf-registry-cli)
 
 Ths project has been battle tested in huge production workload since 2 years and cost less than 10$ per month.
+
+## v1.1.0 
+
+Add a blob api to get terraforn module stored in the bucket using api gateway.
+The api gateway is used as a proxy to aws s3 bucket, and use JWT token as authentication method.
+
+Using aws api gateay as a s3 proxy:
+
+- simplify sharing in a multi account context : we just manage JWT token
+- permit us to use this registry from other platform with no direct credentials with aws
+
+
 
 ## Terraform private registry design
 
@@ -372,3 +386,8 @@ curl -H 'Accept: application/json' -H "Authorization: Bearer ${JWT_TOKEN}"  http
 }
 ```
 
+Blob api access for module stored in the bucket:
+
+```bash
+curl  -H 'Accept: application/x-tar' -H "Authorization: Bearer ${JWT_TOKEN}" "https://registry-my-domain.com/blob/my-org/aws/kinesis-firehose/0.4.4/archive.tar.gz" --output archive.tar.gz
+```
